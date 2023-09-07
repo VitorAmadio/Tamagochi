@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Checkbox from 'expo-checkbox';
-import { TextInput, SafeAreaView, StyleSheet, View, Text, Alert } from "react-native";
+import { TextInput, SafeAreaView, StyleSheet, View, Text, Alert, Image } from "react-native";
 import MyButton from "../components/MyButton";
 
 
@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: '#4968B7 '
     },
     input: {
         height: 50,
@@ -21,6 +22,10 @@ const styles = StyleSheet.create({
     senha:{
         flexDirection: "row",
         
+    },
+    image:{
+        width:400,
+        height:100
     }
 });
 
@@ -34,7 +39,8 @@ const Login = () => {
         backgroundColor:'#274383',
         height:60,
         borderRadius:10,
-        margin:20
+        margin:20,
+        color: '#fff'
     }
 
     const validateLogin = ()=>{
@@ -51,8 +57,9 @@ const Login = () => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <TextInput value={login} style={styles.input} placeholder="Username" onChangeText={setLogin} />
-            <TextInput value={password} secureTextEntry={useSecurity} style={styles.input} placeholder="Password" onChangeText={setPassword} />
+            <Image source={require('../images/Tamagotchi.png')} style={styles.image}/>
+            <TextInput value={login} style={styles.input} placeholder="Usuário" onChangeText={setLogin} />
+            <TextInput value={password} secureTextEntry={useSecurity} style={styles.input} placeholder="Senha" onChangeText={setPassword} />
             <View style={styles.senha}>
                 <Text>Esconder Senha  </Text>
                 <Checkbox value={useSecurity} onValueChange={setUseSecurity}/>
