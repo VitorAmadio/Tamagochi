@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#4968B7'
+    backgroundColor: '#fff'
   },
   input: {
     height: 50,
@@ -54,11 +54,11 @@ const Login = () => {
 
   const alterScreen = async () => {
     try {
-      const response = await axios.post('https://tamagochiapi-clpsampedro.b4a.run/login', {
+      const {data} = await axios.post('https://tamagochiapi-clpsampedro.b4a.run/login', {
         email: login,
         password: password,
       });
-      console.log('Resposta do servidor: aaa');
+      console.log('Resposta do servidor:', data);
     } catch (error) {
       console.log('Erro ao fazer login:', error);
     }
