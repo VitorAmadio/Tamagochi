@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const Login = () => {
+const Login = ({navigation}:any) => {
   const [login, setLogin] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [useSecurity, setUseSecurity] = useState<boolean>(true);
@@ -59,6 +59,7 @@ const Login = () => {
         password: password,
       });
       console.log('Resposta do servidor:', data);
+      navigation.navigate('CadastroUsuario');
     } catch (error) {
       console.log('Erro ao fazer login:', error);
     }
