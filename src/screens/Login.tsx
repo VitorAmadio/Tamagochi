@@ -64,7 +64,7 @@ const Login = ({navigation}:any) => {
         password: password
       });
       console.log('Resposta do servidor:', data);
-      navigation.navigate('PrimeiraTela');
+      navigation.navigate('CadastroUsuario');
     } catch (error) {
       console.log('Erro ao fazer login:', error);
     }
