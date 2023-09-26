@@ -38,7 +38,7 @@ const Login = ({navigation}:any) => {
     backgroundColor: '#274383',
     height: 60,
     borderRadius: 10,
-    margin: 20,
+    margin: 17,
     color: '#fff'
     
   }
@@ -63,9 +63,13 @@ const Login = ({navigation}:any) => {
         email: login,
         password: password
       });
-      console.log('Resposta do servidor:', data);
+      //console.log('Resposta do servidor:', data);
       navigation.navigate('CadastroUsuario');
     } catch (error) {
+
+      Alert.alert('Erro', 'Login ou Senha Incorretos', [
+        { text: 'OK', onPress: () => console.log('Ok') },
+      ]);
       console.log('Erro ao fazer login:', error);
     }
   };
@@ -81,6 +85,8 @@ const Login = ({navigation}:any) => {
       </View>
 
       <MyButton title="Login" onPressButton={validateLogin} containerStyle={styleButton} />
+      <MyButton title="Cadastrar" onPressButton={()=>navigation.navigate('CadastroUsuario')} containerStyle={styleButton} />
+
     </SafeAreaView>
   );
 };
