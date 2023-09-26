@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     }
   });
   
-const CadastroUsuario = () => {
+const CadastroUsuario = ({route}:any) => {
     const [login, setLogin] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [useSecurity, setUseSecurity] = useState<boolean>(true);
@@ -43,13 +43,21 @@ const CadastroUsuario = () => {
     }
     const validateRegister = () => {
         if (!login || !password) {
-          Alert.alert('Erro', 'Informe o Login e a Senha para se conectar', [
+          Alert.alert('Erro', 'Informe o Login e a Senha para se cadastrar', [
             { text: 'OK', onPress: () => console.log('Ok') },
           ]);
           return
-        } else if (password.length <= 6) {
-            registerUser();
+        } else{
+          
+            if (password.length >= 6) {
+              registerUser();
+            }else{
+              Alert.alert('Erro', 'A senha deve ser maior que 6 digitos', [
+                { text: 'OK', onPress: () => console.log('Ok') },
+              ]);
+            }
         }
+
       }
       const registerUser = async () => {
         try {

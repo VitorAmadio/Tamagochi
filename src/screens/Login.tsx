@@ -40,6 +40,7 @@ const Login = ({navigation}:any) => {
     borderRadius: 10,
     margin: 20,
     color: '#fff'
+    
   }
 
   const validateLogin = () => {
@@ -47,7 +48,11 @@ const Login = ({navigation}:any) => {
       Alert.alert('Erro', 'Informe o Login e a Senha para se conectar', [
         { text: 'OK', onPress: () => console.log('Ok') },
       ]);
-    } else {
+    }else if(password.length < 6){
+      Alert.alert('Erro', 'A senha deve ser maior que 6 digitos', [
+        { text: 'OK', onPress: () => console.log('Ok') },
+      ]);
+    }else {
       alterScreen();
     }
   }
@@ -56,10 +61,10 @@ const Login = ({navigation}:any) => {
     try {
       const {data} = await axios.post('https://tamagochiapi-clpsampedro.b4a.run/login', {
         email: login,
-        password: password,
+        password: password
       });
       console.log('Resposta do servidor:', data);
-      navigation.navigate('CadastroUsuario');
+      navigation.navigate('PrimeiraTela');
     } catch (error) {
       console.log('Erro ao fazer login:', error);
     }
