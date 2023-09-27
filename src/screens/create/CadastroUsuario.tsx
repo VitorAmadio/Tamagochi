@@ -1,7 +1,6 @@
-import Checkbox from "expo-checkbox";
 import React, { useState } from "react";
-import { Alert, SafeAreaView, StyleSheet, Text, TextInput, View } from "react-native";
-import MyButton from "../components/MyButton";
+import { Alert, SafeAreaView, StyleSheet, TextInput, View } from "react-native";
+import MyButton from "../../components/MyButton";
 import axios from "axios";
 
 const styles = StyleSheet.create({
@@ -49,8 +48,8 @@ const CadastroUsuario = ({route}:any) => {
         color: '#fff'
     }
     const validateRegister = () => {
-        if (!login || !password) {
-          Alert.alert('Erro', 'Informe o Login e a Senha para se cadastrar', [
+        if (!login || !password || !confirmPassword) {
+          Alert.alert('Erro', 'Informe o Login e confirme a senha para se cadastrar', [
             { text: 'OK', onPress: () => console.log('Ok') },
           ]);
           return
@@ -89,6 +88,7 @@ const CadastroUsuario = ({route}:any) => {
       };
 
     return (
+      
         <SafeAreaView style={styles.container}>
             <TextInput value={login} style={styles.input} placeholder="E-mail" onChangeText={setLogin} />
             <TextInput value={password} secureTextEntry={true} style={styles.input} placeholder="Senha" onChangeText={setPassword} />

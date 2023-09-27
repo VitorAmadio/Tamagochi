@@ -3,6 +3,7 @@ import Checkbox from 'expo-checkbox';
 import { TextInput, SafeAreaView, StyleSheet, View, Text, Alert, Image } from "react-native";
 import MyButton from "../components/MyButton";
 import axios from "axios";
+import useAuthStore from '../functions/saveToken';
 
 const styles = StyleSheet.create({
   container: {
@@ -32,6 +33,7 @@ const Login = ({navigation}:any) => {
   const [login, setLogin] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [useSecurity, setUseSecurity] = useState<boolean>(true);
+  const { token, setToken } = useAuthStore();
 
   const styleButton = {
     width: 150,
@@ -63,8 +65,9 @@ const Login = ({navigation}:any) => {
         email: login,
         password: password
       });
+      setToken(data.token)
       //console.log('Resposta do servidor:', data);
-      navigation.navigate('CadastroUsuario');
+      navigation.navigate('Home');
     } catch (error) {
 
       Alert.alert('Erro', 'Login ou Senha Incorretos', [
