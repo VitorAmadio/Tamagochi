@@ -1,8 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Alert, SafeAreaView, StyleSheet, TextInput } from "react-native";
-import MyButton from "../../components/MyButton";
+import { Alert, FlatList, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+//import MyButton from "../../components/MyButton";
 import axios from "axios";
 import useAuthStore from '../../functions/saveToken';
+import { Image } from "react-native";
 
 const styles = StyleSheet.create({
     search: {
@@ -23,18 +24,44 @@ const styles = StyleSheet.create({
       flexDirection: "row",
     },
     image: {
-      width: 400,
-      height: 100
+      width: 50,
+      height: 50
+    },
+    text:{
+      color: '#000',
+      fontSize:20
     }
   });
+type item ={
+  tamagotchi:{
+    name: string;
+    life: number;
+  }
+}
+const ListItem = ({tamagotchi}:item) =>{
+  return( 
+    <TouchableOpacity>
+      <Text style={styles.text}>{tamagotchi.name}</Text>
+      <Text style={styles.text}>{tamagotchi.life}</Text>
+    </TouchableOpacity>
+  )
+}
 const ListaBichinho = () => {
     const {token} = useAuthStore();
     const [nameSearch, setNameSearch] = useState<string>('');
+    const [tamagochi, setTamagotchi] = useState({pets: []});
 
     const request = useCallback(async () => {
         try{
-            const {data} = await axios.get('https://tamagochiapi-clpsampedro.b4a.run/pets')
-            console.log(data)
+              const {data} = await axios.get('https://tamagochiapi-clpsampedro.b4a.run/pets',{
+
+              headers:{
+                'x-access-token': token
+              } 
+              })
+
+            setTamagotchi(data)
+            //console.log(data)
         }catch(error){
             console.log(error);
         }
@@ -47,8 +74,18 @@ const ListaBichinho = () => {
 
     return (
         <SafeAreaView style={styles.search}>
-            <TextInput value={nameSearch} style={styles.input} placeholder="Nome do Bichinho" onChangeText={setNameSearch} />
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <TextInput value={nameSearch} style={styles.input} placeholder="Nome do Bichinho" onChangeText={setNameSearch} />
+              <TouchableOpacity>
+                  <Image source={require('../../images/lupa.png')} style={styles.image} />
+              </TouchableOpacity>
+          </View>
+    
+          <View>
+              <FlatList data={tamagochi.pets} renderItem={({item}) => <ListItem tamagotchi={item}/>}/>
+          </View>
         </SafeAreaView>
+  
     );
 }
 

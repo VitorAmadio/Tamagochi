@@ -50,7 +50,7 @@ const CadastraBichinho = () => {
                     },
                 }
             );
-            Alert.alert('Sucesso', 'Usuário cadastrado com sucesso', [
+            Alert.alert('Sucesso', 'Bichinho cadastrado com sucesso', [
                 { text: 'OK', onPress: () => console.log('Ok') },
             ]);
             setName('');
