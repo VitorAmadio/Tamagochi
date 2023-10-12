@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const Login = ({navigation}:any) => {
+const Login = ({ navigation }: any) => {
   const [login, setLogin] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [useSecurity, setUseSecurity] = useState<boolean>(true);
@@ -42,7 +42,7 @@ const Login = ({navigation}:any) => {
     borderRadius: 10,
     margin: 17,
     color: '#fff'
-    
+
   }
 
   const validateLogin = () => {
@@ -50,22 +50,23 @@ const Login = ({navigation}:any) => {
       Alert.alert('Erro', 'Informe o Login e a Senha para se conectar', [
         { text: 'OK', onPress: () => console.log('Ok') },
       ]);
-    }else if(password.length < 6){
+    } else if (password.length < 6) {
       Alert.alert('Erro', 'A senha deve ser maior que 6 digitos', [
         { text: 'OK', onPress: () => console.log('Ok') },
       ]);
-    }else {
+    } else {
       alterScreen();
     }
   }
 
   const alterScreen = async () => {
     try {
-      const {data} = await axios.post('https://tamagochiapi-clpsampedro.b4a.run/login', {
+      const { data } = await axios.post('https://tamagochiapi-clpsampedro.b4a.run/login', {
         email: login,
         password: password
       });
       setToken(data.token)
+      console.log('deu bom')
       //console.log('Resposta do servidor:', data);
       navigation.navigate('Home');
     } catch (error) {
@@ -88,7 +89,7 @@ const Login = ({navigation}:any) => {
       </View>
 
       <MyButton title="Login" onPressButton={validateLogin} containerStyle={styleButton} />
-      <MyButton title="Cadastrar" onPressButton={()=>navigation.navigate('CadastroUsuario')} containerStyle={styleButton} />
+      <MyButton title="Cadastrar" onPressButton={() => navigation.navigate('CadastroUsuario')} containerStyle={styleButton} />
 
     </SafeAreaView>
   );
