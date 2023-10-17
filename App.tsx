@@ -15,9 +15,11 @@ const theme = {
 
   myOwnProperty: true,
   colors: {
+    ...DefaultTheme.colors,
     primary: colors.primary,
     secondary: colors.secondary,
     surfaceVariant: colors.surfaceVariant,
+    text: colors.text
   }
 }
 const App = () => {

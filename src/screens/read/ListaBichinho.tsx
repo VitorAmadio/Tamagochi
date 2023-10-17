@@ -1,19 +1,17 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Alert, FlatList, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-//import MyButton from "../../components/MyButton";
 import axios from "axios";
 import useAuthStore from '../../functions/saveToken';
-import { Image } from "react-native";
-import { Button, Card } from "react-native-paper";
-import { amberA100 } from "react-native-paper/lib/typescript/styles/themes/v2/colors";
+import { Button, Card, Dialog, PaperProvider, Portal } from "react-native-paper";
 
 
 const styles = StyleSheet.create({
-  search: {
+  cadastro: {
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
+    padding: 5
   },
   input: {
     height: 50,
@@ -57,10 +55,13 @@ type item = {
   }
 }
 
-const ListaBichinho = () => {
+const ListaBichinho = ({ navigation }: any) => {
   const { token } = useAuthStore();
   const [name, setName] = useState<string>('');
+  const [idBichinho, setIdBichinho] = useState<number>(0);
   const [tamagochi, setTamagotchi] = useState({ pets: [] });
+  const [visible, setVisible] = useState<boolean>(false);
+  const [nomeAtualizado, setNomeAtualizado] = useState<string>('');
 
   const ListItem = ({ tamagotchi }: item) => {
     return (
@@ -69,12 +70,11 @@ const ListaBichinho = () => {
         <Card mode="contained" style={styles.cardContainer}>
           <Card.Content style={styles.cardContent}>
             <View style={styles.textContainer}>
-
               <Text style={styles.text}>Nome: {tamagotchi.name}</Text>
               <Text style={styles.text}>Vida: {tamagotchi.life}</Text>
               <Text style={styles.text}>Diversão: {tamagotchi.funLevel}</Text>
               <View style={styles.button}>
-                <Button mode="contained" onPress={() => console.log('Pressed')}>Editar</Button>
+                <Button mode="contained" onPress={() => showDialog(tamagotchi.id)} textColor={'#008080'}>Editar</Button>
                 <Button mode="contained-tonal" textColor={'#f00'} buttonColor={'#ff8484'} onPress={() => deletaBichinho(tamagotchi.id)}>Excluir</Button>
               </View>
             </View>
@@ -83,7 +83,19 @@ const ListaBichinho = () => {
       </SafeAreaView>
     )
   }
+  const showDialog = (id: number) => {
+    setIdBichinho(id);
+    if (id === 0) {
+      return;
+    }
+    setVisible(true);
+  };
 
+  const hideDialog = () => {
+    setVisible(false);
+    setIdBichinho(0);
+    setNomeAtualizado('');
+  }
   const deletaBichinho = async (id: number) => {
 
     try {
@@ -100,6 +112,29 @@ const ListaBichinho = () => {
         { text: 'Ok', onPress: () => console.log('Ok') },
       ]);
     }
+  }
+
+  const atualizaBichinho = async () => {
+    try {
+      await axios.put('https://tamagochiapi-clpsampedro.b4a.run/pet/' + idBichinho,
+        {
+          name: nomeAtualizado,
+        },
+        {
+          headers: {
+            'x-access-token': token,
+          },
+        }
+      );
+      request();
+    } catch (error) {
+      Alert.alert('Erro', `${error}`, [
+        { text: 'Ok', onPress: () => console.log('Ok') },
+      ]);
+    } finally {
+      hideDialog();
+    }
+
   }
 
   const cadastraBichinho = async () => {
@@ -140,7 +175,6 @@ const ListaBichinho = () => {
       })
 
       setTamagotchi(data)
-      //console.log(data)
     } catch (error) {
       console.log(error);
     }
@@ -154,17 +188,33 @@ const ListaBichinho = () => {
   return (
 
 
-    <SafeAreaView style={styles.search}>
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <TextInput value={name} style={styles.input} placeholder="Nome do Bichinho" onChangeText={setName} />
-        <Button mode="contained" onPress={() => cadastraBichinho()}>Gravar</Button>
-      </View>
+    <>
+      <SafeAreaView style={styles.cadastro}>
+        <Button mode="contained" onPress={() => { navigation.navigate('Login') }} textColor={'#f00'} buttonColor={'#ff8484'}>Logout</Button>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <TextInput value={name} style={styles.input} placeholder="Nome do Bichinho" onChangeText={setName} />
+          <Button mode="contained" onPress={() => cadastraBichinho()} textColor={'#008080'}>Gravar</Button>
+        </View>
 
-      <View>
-        <FlatList data={tamagochi.pets} renderItem={({ item }) => <ListItem tamagotchi={item} />} />
-      </View>
+        <View>
+          <FlatList data={tamagochi.pets} renderItem={({ item }) => <ListItem tamagotchi={item} />} />
+        </View>
 
-    </SafeAreaView>
+      </SafeAreaView>
+
+      <Portal>
+        <Dialog visible={visible} onDismiss={hideDialog}>
+          <Dialog.Title>Editar</Dialog.Title>
+          <Dialog.Content>
+            <TextInput value={nomeAtualizado} style={styles.input} placeholder="Novo Nome" onChangeText={setNomeAtualizado} />
+          </Dialog.Content>
+          <Dialog.Actions>
+            <Button onPress={() => atualizaBichinho()} textColor={'#000'}>Salvar</Button>
+            <Button onPress={() => hideDialog()} textColor={'#000'}>Cancelar</Button>
+          </Dialog.Actions>
+        </Dialog>
+      </Portal>
+    </>
 
   );
 }
