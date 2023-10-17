@@ -69,7 +69,7 @@ const ListaBichinho = () => {
         <Card mode="contained" style={styles.cardContainer}>
           <Card.Content style={styles.cardContent}>
             <View style={styles.textContainer}>
-              <Text style={styles.text}>ID: {tamagotchi.id}</Text>
+
               <Text style={styles.text}>Nome: {tamagotchi.name}</Text>
               <Text style={styles.text}>Vida: {tamagotchi.life}</Text>
               <Text style={styles.text}>Diversão: {tamagotchi.funLevel}</Text>
