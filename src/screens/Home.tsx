@@ -59,6 +59,4 @@ const Home = ({ navigation }: any) => {
     </SafeAreaView>
   );
 }
-//<MyButton onPressButton={() => {navigation.navigate('CadastraBichiho')} } containerStyle={styleButton} title={"Cadastro de Bichinhos"} />
-//<MyButton onPressButton={() => { navigation.navigate('DeletaBichinho') }} containerStyle={styleButton} title={"Deleção de Bichinhos"} />
 export default Home;

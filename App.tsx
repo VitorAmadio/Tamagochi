@@ -9,6 +9,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { PaperProvider, MD3LightTheme as DefaultTheme } from "react-native-paper";
 import { colors } from './src/util/color';
+import DetalhesBichinho from './src/screens/read/DetalhesBichinho';
 
 const theme = {
   ...DefaultTheme,
@@ -23,7 +24,9 @@ const theme = {
   }
 }
 const App = () => {
+
   const Stack = createNativeStackNavigator();
+
   return (
     <PaperProvider theme={theme}>
       <NavigationContainer>
@@ -33,7 +36,7 @@ const App = () => {
           <Stack.Screen name='CadastroUsuario' component={CadastroUsuario} />
           <Stack.Screen name='CadastraBichinho' component={CadastraBichinho} />
           <Stack.Screen name='ListaBichinho' component={ListaBichinho} />
-          <Stack.Screen name='DeletaBichinho' component={DeletaBichinho} />
+          <Stack.Screen name='DetalhesBichinho' component={DetalhesBichinho} />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>

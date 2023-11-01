@@ -66,7 +66,7 @@ const ListaBichinho = ({ navigation }: any) => {
   const ListItem = ({ tamagotchi }: item) => {
     return (
 
-      <SafeAreaView>
+      <TouchableOpacity onPress={() => { navigation.navigate('DetalhesBichinho', { id: tamagotchi.id }) }}>
         <Card mode="contained" style={styles.cardContainer}>
           <Card.Content style={styles.cardContent}>
             <View style={styles.textContainer}>
@@ -80,7 +80,7 @@ const ListaBichinho = ({ navigation }: any) => {
             </View>
           </Card.Content>
         </Card>
-      </SafeAreaView>
+      </TouchableOpacity>
     )
   }
   const showDialog = (id: number) => {
@@ -90,6 +90,11 @@ const ListaBichinho = ({ navigation }: any) => {
     }
     setVisible(true);
   };
+
+  const viewDetails = (id: number) => {
+
+
+  }
 
   const hideDialog = () => {
     setVisible(false);
@@ -189,7 +194,7 @@ const ListaBichinho = ({ navigation }: any) => {
 
 
     <>
-      <SafeAreaView style={styles.cadastro}>
+      <SafeAreaView style={styles.cadastro} >
         <Button mode="contained" onPress={() => { navigation.navigate('Login') }} textColor={'#f00'} buttonColor={'#ff8484'}>Logout</Button>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <TextInput value={name} style={styles.input} placeholder="Nome do Bichinho" onChangeText={setName} />

@@ -66,8 +66,6 @@ const Login = ({ navigation }: any) => {
         password: password
       });
       setToken(data.token)
-      console.log('deu bom')
-      //console.log('Resposta do servidor:', data);
       navigation.navigate('Home');
     } catch (error) {
 
