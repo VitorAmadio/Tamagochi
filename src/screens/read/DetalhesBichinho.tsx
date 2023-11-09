@@ -52,10 +52,12 @@ const DetalhesBichinho = ({ route }: any) => {
                             <View style={styles.centerImage}><Avatar.Image size={90} source={require('../imageScreen/bichinho.jpg')} /></View>
                             <Text style={styles.text}>Nome: {tamagotchi?.name}</Text>
                             <Text style={styles.text}>Vida: {tamagotchi?.life}</Text>
-                            <Text style={styles.text}>Vida restante: {tamagotchi?.restLevel}</Text>
+                            <Text style={styles.text}>Nivel de descanso: {tamagotchi?.restLevel}</Text>
                             <Text style={styles.text}>Diversão: {tamagotchi?.funLevel}</Text>
+
                             <Button mode="contained" textColor={'#008080'}>Brincar</Button>
-                            <Button mode="contained-tonal" textColor={'#f00'} buttonColor={'#ff8484'}>Comer</Button>
+                            <Button mode="contained" textColor={'#008080'} onPress={() => descansar()}>Dormir</Button>
+                            <Button mode="contained-tonal" textColor={'#f00'} buttonColor={'#ff8484'} onPress={() => alimentar()}>Comer</Button>
                         </View>
                     </Card.Content>
                 </Card>
@@ -84,6 +86,40 @@ const DetalhesBichinho = ({ route }: any) => {
     useEffect(() => {
         getDetalhesBichinho();
     }, [])
+
+    const alimentar = async () => {
+        try {
+            await axios.post('https://tamagochiapi-clpsampedro.b4a.run/pet/' + id + '/food', {}, {
+                headers: {
+                    'x-access-token': token,
+                },
+            });
+
+            getDetalhesBichinho();
+        } catch (error) {
+            Alert.alert('Erro', `${error}`, [
+                { text: 'Ok', onPress: () => console.log('Ok') },
+            ]);
+        }
+    }
+
+    const descansar = async () => {
+        try {
+            await axios.post('https://tamagochiapi-clpsampedro.b4a.run/pet/' + id + '/rest', {},
+                {
+                    headers: {
+                        'x-access-token': token,
+                    },
+                }
+            );
+            getDetalhesBichinho();
+        } catch (error) {
+            Alert.alert('Erro', `${error}`, [
+                { text: 'Ok', onPress: () => console.log('Ok') },
+            ]);
+        }
+    }
+
 
     return (
         ListItem()
