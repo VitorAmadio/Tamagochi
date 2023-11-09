@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import useAuthStore from '../functions/saveToken';
+import axios from 'axios';
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -29,9 +31,27 @@ const styles = StyleSheet.create({
     },
 });
 
-const CaraCoroa = () => {
+const CaraCoroa = ({ route }: any) => {
+    const { id } = route.params;
+    const { token } = useAuthStore();
     const [resultado, setResultado] = useState<string | null>(null);
     const [escolha, setEscolha] = useState<string | null>(null);
+
+    const aumentarVida = async () => {
+        try {
+            await axios.post('https://tamagochiapi-clpsampedro.b4a.run/pet/' + id + '/play', {},
+                {
+                    headers: {
+                        'x-access-token': token,
+                    },
+                }
+            );
+        } catch (error) {
+            Alert.alert('Erro', `${error}`, [
+                { text: 'Ok', onPress: () => console.log('Ok') },
+            ]);
+        }
+    }
 
     const jogarMoeda = () => {
         const numeroAleatorio = Math.floor(Math.random() * 2);
@@ -48,7 +68,9 @@ const CaraCoroa = () => {
                 { text: 'OK', onPress: () => console.log('Ok') },
             ]);
         }
+        aumentarVida();
     };
+
 
     return (
         <View style={styles.container}>

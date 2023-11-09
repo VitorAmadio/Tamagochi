@@ -91,10 +91,6 @@ const ListaBichinho = ({ navigation }: any) => {
     setVisible(true);
   };
 
-  const viewDetails = (id: number) => {
-
-
-  }
 
   const hideDialog = () => {
     setVisible(false);
@@ -187,7 +183,7 @@ const ListaBichinho = ({ navigation }: any) => {
 
   useEffect(() => {
     request();
-  }, [])
+  }, [navigation])
 
 
   return (

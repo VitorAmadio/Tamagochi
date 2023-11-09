@@ -55,7 +55,8 @@ const DetalhesBichinho = ({ route, navigation }: any) => {
                             <Text style={styles.text}>Nivel de descanso: {tamagotchi?.restLevel}</Text>
                             <Text style={styles.text}>Diversão: {tamagotchi?.funLevel}</Text>
 
-                            <Button mode="contained" textColor={'#008080'} onPress={() => { navigation.navigate('CaraCoroa') }} >Brincar</Button>
+                            <Button mode="contained" textColor={'#008080'} onPress={() => navigation.navigate('CaraCoroa', { id })}>Brincar</Button>
+
                             <Button mode="contained" textColor={'#008080'} onPress={() => descansar()}>Dormir</Button>
                             <Button mode="contained-tonal" textColor={'#f00'} buttonColor={'#ff8484'} onPress={() => alimentar()}>Comer</Button>
                         </View>
@@ -85,7 +86,7 @@ const DetalhesBichinho = ({ route, navigation }: any) => {
     }
     useEffect(() => {
         getDetalhesBichinho();
-    }, [])
+    }, [navigation])
 
     const alimentar = async () => {
         try {
