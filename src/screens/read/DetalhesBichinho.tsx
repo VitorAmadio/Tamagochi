@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     }
 
 });
-const DetalhesBichinho = ({ route }: any) => {
+const DetalhesBichinho = ({ route, navigation }: any) => {
     const { id } = route.params;
     const { token } = useAuthStore();
     const [tamagotchi, setTamagotchi] = useState<any>();
@@ -55,7 +55,7 @@ const DetalhesBichinho = ({ route }: any) => {
                             <Text style={styles.text}>Nivel de descanso: {tamagotchi?.restLevel}</Text>
                             <Text style={styles.text}>Diversão: {tamagotchi?.funLevel}</Text>
 
-                            <Button mode="contained" textColor={'#008080'}>Brincar</Button>
+                            <Button mode="contained" textColor={'#008080'} onPress={() => { navigation.navigate('CaraCoroa') }} >Brincar</Button>
                             <Button mode="contained" textColor={'#008080'} onPress={() => descansar()}>Dormir</Button>
                             <Button mode="contained-tonal" textColor={'#f00'} buttonColor={'#ff8484'} onPress={() => alimentar()}>Comer</Button>
                         </View>

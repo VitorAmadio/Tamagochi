@@ -3,7 +3,7 @@ import Login from './src/screens/Login';
 import CadastroUsuario from './src/screens/create/CadastroUsuario';
 import CadastraBichinho from './src/screens/create/CadastraBichinho';
 import ListaBichinho from './src/screens/read/ListaBichinho';
-import DeletaBichinho from './src/screens/delete/DeletaBichinho';
+import CaraCoroa from './src/screens/CaraCoroa';
 import Home from './src/screens/Home';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -37,6 +37,7 @@ const App = () => {
           <Stack.Screen name='CadastraBichinho' component={CadastraBichinho} />
           <Stack.Screen name='ListaBichinho' component={ListaBichinho} />
           <Stack.Screen name='DetalhesBichinho' component={DetalhesBichinho} />
+          <Stack.Screen name='CaraCoroa' component={CaraCoroa} />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>
