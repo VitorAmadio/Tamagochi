@@ -34,8 +34,8 @@ const styles = StyleSheet.create({
 const CaraCoroa = ({ route }: any) => {
     const { id } = route.params;
     const { token } = useAuthStore();
-    const [resultado, setResultado] = useState<string | null>(null);
-    const [escolha, setEscolha] = useState<string | null>(null);
+    const [resultado, setResultado] = useState<string | null>();
+    const [escolha, setEscolha] = useState<string | null>();
 
     const aumentarVida = async () => {
         try {
