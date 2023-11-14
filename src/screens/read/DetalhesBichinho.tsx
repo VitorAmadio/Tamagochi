@@ -57,8 +57,8 @@ const DetalhesBichinho = ({ route, navigation }: any) => {
 
                             <Button mode="contained" textColor={'#008080'} onPress={() => navigation.navigate('CaraCoroa', { id })}>Brincar</Button>
 
-                            <Button mode="contained" textColor={'#008080'} onPress={() => descansar()}>Dormir</Button>
-                            <Button mode="contained-tonal" textColor={'#f00'} buttonColor={'#ff8484'} onPress={() => alimentar()}>Comer</Button>
+                            <Button mode="contained" textColor={'#000680'} buttonColor={'#84ffff'} onPress={() => descansar()}>Dormir</Button>
+                            <Button mode="contained-tonal" textColor={'#000000'} buttonColor={'#ffeb84'} onPress={() => alimentar()}>Comer</Button>
                         </View>
                     </Card.Content>
                 </Card>
