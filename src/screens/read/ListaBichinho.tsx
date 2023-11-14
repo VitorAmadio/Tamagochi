@@ -183,7 +183,7 @@ const ListaBichinho = ({ navigation }: any) => {
 
   useEffect(() => {
     request();
-  }, [navigation])
+  }, [])
 
 
   return (

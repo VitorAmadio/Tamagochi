@@ -86,7 +86,7 @@ const DetalhesBichinho = ({ route, navigation }: any) => {
     }
     useEffect(() => {
         getDetalhesBichinho();
-    }, [navigation])
+    }, [])
 
     const alimentar = async () => {
         try {
