@@ -66,7 +66,7 @@ const ListaBichinho = ({ navigation }: any) => {
   const ListItem = ({ tamagotchi }: item) => {
     return (
 
-      <TouchableOpacity onPress={() => { navigation.navigate('DetalhesBichinho', { id: tamagotchi.id }) }}>
+      <TouchableOpacity onPress={() => { navigation.navigate('DetalhesBichinho', { id: tamagotchi.id }), request() }}>
         <Card mode="contained" style={styles.cardContainer}>
           <Card.Content style={styles.cardContent}>
             <View style={styles.textContainer}>
